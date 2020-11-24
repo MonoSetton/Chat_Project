@@ -100,9 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(i);
                                         finish();
-
-
-
                                     }
 
                                 }

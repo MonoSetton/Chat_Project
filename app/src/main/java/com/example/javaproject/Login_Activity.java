@@ -51,7 +51,7 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login_);
 
         userETLogin = findViewById(R.id.editTextLogin);
-        passETLogin = findViewById(R.id.passEditText);
+        passETLogin = findViewById(R.id.editTextTextPassword);
         loginBtn = findViewById(R.id.buttonLogin);
         registerBtn = findViewById(R.id.registerBtn);
 
