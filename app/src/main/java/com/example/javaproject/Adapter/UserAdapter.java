@@ -22,12 +22,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder> {
 
     private Context context;
     private List<Users> mUsers;
+    private boolean isChat;
+
+
 
     //Constructor
 
-    public UserAdapter(Context context, List<Users> mUsers) {
+    public UserAdapter(Context context, List<Users> mUsers, boolean isChat) {
         this.context = context;
         this.mUsers = mUsers;
+        this.isChat = isChat;
+
     }
 
 
@@ -59,6 +64,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder> {
                     .into(holder.imageView);
         }
 
+        //Status check
+        if (isChat)
+        {
+            if (users.getStatus().equals("online"))
+            {
+                holder.imageViewOn.setVisibility(View.VISIBLE);
+                holder.imageViewOff.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.imageViewOn.setVisibility(View.GONE);
+                holder.imageViewOff.setVisibility(View.VISIBLE);
+            }
+        }
+        else
+        {
+            holder.imageViewOn.setVisibility(View.GONE);
+            holder.imageViewOff.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener((v) -> {
                 Intent i = new Intent(context, MessageActivity.class);
                 i.putExtra("userid", users.getId());
@@ -81,6 +106,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder> {
     public class Viewholder extends RecyclerView.ViewHolder{
         public TextView username;
         public ImageView imageView;
+        public ImageView imageViewOn;
+        public ImageView imageViewOff;
 
 
         public Viewholder(@NonNull View itemView) {
@@ -88,6 +115,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder> {
 
             username = itemView.findViewById(R.id.textView30);
             imageView = itemView.findViewById(R.id.imageView30);
+            imageViewOn = itemView.findViewById(R.id.statusimageOn);
+            imageViewOff = itemView.findViewById(R.id.statusimageOFF);
 
 
         }

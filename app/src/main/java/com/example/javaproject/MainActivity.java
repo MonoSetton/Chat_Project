@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.javaproject.Fragments.ChatsFragment;
+import com.example.javaproject.Fragments.ProfileFragment;
 import com.example.javaproject.Fragments.UsersFragment;
 import com.example.javaproject.Model.Users;
 import com.google.android.material.tabs.TabLayout;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        myRef = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
 
     myRef.addValueEventListener(new ValueEventListener() {
         @Override
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
 
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -90,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, Login_Activity.class));
-                finish();
+                startActivity(new Intent(MainActivity.this, Login_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
 
 
@@ -142,8 +145,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void CheckStatus(String status)
+    {
+        myRef = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
 
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
 
+        myRef.updateChildren(hashMap);
 
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        CheckStatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CheckStatus("Offline");
+    }
 }
+
