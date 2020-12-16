@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.653"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <ImageView
         android:id="@+id/statusimageOFF"
@@ -51,5 +51,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.653"
-        app:srcCompat="@drawable/background_right" />
+        app:srcCompat="@android:drawable/ic_delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

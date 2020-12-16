@@ -226,8 +226,7 @@ SeenMessage(userid);
                 {
                     Chat chat = snapshot.getValue(Chat.class);
 
-                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid))
+                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(myid))
                     {
                         mchat.add(chat);
                     }
